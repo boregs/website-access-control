@@ -12,6 +12,7 @@ CREATE TABLE placeholder.users (
 	last_name VARCHAR(20),
 	date_of_birth DATE,
 	username TEXT UNIQUE, 
-	email TEXT UNIQUE, 
+	email TEXT UNIQUE,
+	password TEXT,
 	nationality VARCHAR(2)
 	);
