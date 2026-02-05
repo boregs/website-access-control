@@ -1,5 +1,3 @@
-using System;
-
 namespace WebsiteAccessControl.Models
 {
   public class UserSignIn(){
