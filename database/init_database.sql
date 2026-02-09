@@ -1,9 +1,3 @@
-DROP DATABASE IF EXISTS testing (FORCE);
-
-CREATE DATABASE testing;
-
-\c testing;
-
 CREATE SCHEMA placeholder;
 
 CREATE TABLE placeholder.Users (
@@ -17,11 +11,9 @@ CREATE TABLE placeholder.Users (
 	nationality VARCHAR(2)
 	);
 
--- verificar a tabela abaixo depois
-
 CREATE TABLE placeholder.UserAccessLogs (
     id SERIAL PRIMARY KEY,
-    UserId VARCHAR(100),
-    PageAccessed VARCHAR(255) NOT NULL,
-    AccessDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    User_Id VARCHAR(100),
+    Page_Accessed VARCHAR(255) NOT NULL,
+    Access_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
