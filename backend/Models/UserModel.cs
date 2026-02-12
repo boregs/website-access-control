@@ -2,17 +2,17 @@ namespace backend.Models;
 
 public class UserModel()
 {    
-    public string firstName { get; set; }
+    public required string FirstName { get; set; }
 
-    public string lastName { get; set; }
+    public required string LastName { get; set; }
 
-    public DateOnly dateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 
-    public string username { get; set; }
+    public required string Username { get; set; }
 
-    public string email { get; set; }
+    public required string Email { get; set; }
     
-    public string password { get; set; }
+    public required string Password { get; set; }
 
-    public string nationality { get; set; }
+    public string? Nationality { get; set; }
 }
