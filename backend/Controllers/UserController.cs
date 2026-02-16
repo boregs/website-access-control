@@ -31,6 +31,4 @@ namespace backend.Controllers
             return Ok("User created successfully." + user.Username);
         }
     }
-
-    
 }
