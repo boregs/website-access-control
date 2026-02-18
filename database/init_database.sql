@@ -1,17 +1,19 @@
-DROP DATABASE IF EXISTS testing (FORCE);
+CREATE SCHEMA website;
 
-CREATE DATABASE testing;
-
-\c testing;
-
-CREATE SCHEMA placeholder;
-
-CREATE TABLE placeholder.users (
+CREATE TABLE website.Users (
 	id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
 	first_name VARCHAR(20),
 	last_name VARCHAR(20),
 	date_of_birth DATE,
 	username TEXT UNIQUE, 
-	email TEXT UNIQUE, 
+	email TEXT UNIQUE,
+	password TEXT,
 	nationality VARCHAR(2)
 	);
+
+CREATE TABLE website.UserAccessLogs (
+    id SERIAL PRIMARY KEY,
+    User_Id VARCHAR(100),
+    Page_Accessed VARCHAR(255) NOT NULL,
+    Access_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
