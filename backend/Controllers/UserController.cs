@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
@@ -16,19 +17,50 @@ namespace backend.Controllers
             _dao = dao;
         }
 
-        [HttpGet]
-        public IActionResult GetAllUsers()
+        [HttpGet("GetUsers")]
+        public async Task<IActionResult> GetAllUsers()
         {
-            var users = _dao.Users.ToList();
-            return Ok("All users retrieved successfully.");
+            var result = await _dao.Users.Select(x => new UserModel
+            {
+                Id = x.Id,
+                Username = x.Username,
+                Email = x.Email,
+                Password = x.Password,
+                LastName = x.LastName,
+                FirstName = x.FirstName
+            }).ToListAsync();
+
+            return Ok(result);
+            
         }
 
-        [HttpPost]
-        public IActionResult CreateUser(UserModel user)
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser([FromBody] UserModel user)
         {
             _dao.Users.Add(user);
-            _dao.SaveChanges();
-            return Ok("User created successfully." + user.Username);
+            await _dao.SaveChangesAsync();
+
+            return Ok(user);
+        }
+
+        [HttpPut("EditUser")]
+        public async Task<IActionResult> EditUser([FromBody] UserModel user)
+        {
+            var rows = await _dao.Users.Where(x => x.Id == user.Id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.Username, user.Username)
+                .SetProperty(x => x.Email, user.Email)
+                .SetProperty(x => x.Password, user.Password)
+            );
+
+            return Ok($"Updated {rows} rows.");
+        }
+
+        [HttpDelete("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var rows = await _dao.Users.Where(x => x.Id == id).ExecuteDeleteAsync();
+
+            return Ok($"Deleted {rows} rows.");
         }
     }
 }
