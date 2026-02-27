@@ -17,10 +17,4 @@ namespace backend.Models
     
         public string? Nationality { get; set; }
     }
-
-    class UserModelDb : DbContext
-    {
-        public UserModelDb(DbContextOptions options) : base(options) { }
-        public DbSet<UserModel> UserModel { get; set; } = null!;
-    }
 }
